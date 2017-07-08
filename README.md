@@ -1,4 +1,6 @@
 # Bottom Navigation
+* Kotlin
+* [BottomNavigationView](https://developer.android.com/reference/android/support/design/widget/BottomNavigationView.html)   
 ![screenshot](docs/screenshot.png)
 
 ## Prerequisites
