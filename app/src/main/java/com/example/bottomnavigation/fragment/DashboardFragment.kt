@@ -11,12 +11,12 @@ import com.example.bottomnavigation.R
 class DashboardFragment : Fragment() {
 
     companion object {
-        val TAG = DashboardFragment::class.java.simpleName!!
+        val TAG: String = DashboardFragment::class.java.simpleName
         fun newInstance() = DashboardFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        activity.title = TAG
+        activity.title = getString(R.string.title_dashboard)
         val view = inflater?.inflate(R.layout.fragment_dashboard, container, false)
         return view
     }
