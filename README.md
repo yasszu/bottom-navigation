@@ -1,6 +1,7 @@
 # Bottom Navigation
 * Kotlin
 * [BottomNavigationView](https://developer.android.com/reference/android/support/design/widget/BottomNavigationView.html)   
+* Disable BottomNavigationView shift mode.
 ![screenshot](docs/screenshot.png)
 
 ## Prerequisites
