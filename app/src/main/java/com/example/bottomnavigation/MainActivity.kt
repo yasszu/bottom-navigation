@@ -13,42 +13,30 @@ import com.example.bottomnavigation.fragment.NotificationsFragment
 import com.example.bottomnavigation.fragment.ProfileFragment
 import com.example.bottomnavigation.helper.BottomNavigationHelper
 import com.example.bottomnavigation.helper.BottomNavigationPosition
+import com.example.bottomnavigation.extension.*
 
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     val KEY_POSITION = "keyPosition"
-    var mNavPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
+
+    var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         restoreSaveInstanceState(savedInstanceState)
-        findViewById(R.id.toolbar).apply { setSupportActionBar(this as Toolbar) }
-        findViewById(R.id.bottom_navigation).apply { setupBottomNavigation(this as BottomNavigationView) }
+        initViews()
         initFragment(savedInstanceState)
     }
 
-    fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
-        if (savedInstanceState != null) {
-            val id = savedInstanceState.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)
-            mNavPosition = BottomNavigationHelper.findPositionById(id)
-        }
-    }
-
     override fun onSaveInstanceState(outState: Bundle?) {
-        outState?.putInt(KEY_POSITION, mNavPosition.id)
+        outState?.putInt(KEY_POSITION, navPosition.id)
         super.onSaveInstanceState(outState)
     }
 
-    fun setupBottomNavigation(bottomNavigationView: BottomNavigationView) {
-        BottomNavigationHelper.disableShiftMode(bottomNavigationView)
-        BottomNavigationHelper.activateMenu(bottomNavigationView, mNavPosition.position)
-        bottomNavigationView.setOnNavigationItemSelectedListener (this)
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        mNavPosition = BottomNavigationHelper.findPositionById(item.itemId)
+        navPosition = BottomNavigationHelper.findPositionById(item.itemId)
         return when(item.itemId) {
             R.id.home -> switchFragment(HomeFragment.newInstance(), HomeFragment.TAG)
             R.id.dashboard -> switchFragment(DashboardFragment.newInstance(), DashboardFragment.TAG)
@@ -58,30 +46,56 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
-    fun initFragment(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            val fragment = HomeFragment.newInstance()
-            val tag = HomeFragment.TAG
-            switchFragment(fragment, tag)
+    fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            val id = it.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)
+            navPosition = BottomNavigationHelper.findPositionById(id)
         }
     }
 
+    fun initViews() {
+        findViewById(R.id.toolbar).apply { setSupportActionBar(this as Toolbar) }
+        findViewById(R.id.bottom_navigation).apply { setupBottomNavigation(this as BottomNavigationView) }
+    }
+
+    fun setupBottomNavigation(bottomNavigationView: BottomNavigationView) {
+        bottomNavigationView.disableShiftMode()
+        bottomNavigationView.active(navPosition.position)
+        bottomNavigationView.setOnNavigationItemSelectedListener(this)
+    }
+
+    fun initFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            switchFragment(HomeFragment.newInstance(), HomeFragment.TAG)
+        }
+    }
+
+    /**
+     * Immediately execute transactions with FragmentManager#executePendingTransactions.
+     */
     fun switchFragment(fragment: Fragment, tag: String): Boolean {
         if (fragment.isAdded) return false
-        val ft = supportFragmentManager.beginTransaction()
-        supportFragmentManager.findFragmentById(R.id.container)?.let { ft.detach(it) }
-        attachFragment(fragment, tag, ft)
+        detachFragment()
+        attachFragment(fragment, tag)
         supportFragmentManager.executePendingTransactions()
         return true
     }
 
-    fun attachFragment(fragment: Fragment, tag: String, ft: FragmentTransaction) {
-        if (fragment.isDetached) {
-            ft.attach(fragment)
-        } else {
-            ft.add(R.id.container, fragment, tag)
+    fun detachFragment() {
+        supportFragmentManager.findFragmentById(R.id.container)?.let {
+            supportFragmentManager.beginTransaction().detach(it).commit()
         }
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
+    }
+
+    fun attachFragment(fragment: Fragment, tag: String) {
+        if (fragment.isDetached) {
+            supportFragmentManager.beginTransaction().attach(fragment).commit()
+        } else {
+            supportFragmentManager.beginTransaction().add(R.id.container, fragment, tag).commit()
+        }
+        supportFragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
     }
 
 }
