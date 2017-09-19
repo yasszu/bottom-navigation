@@ -22,11 +22,17 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
+    lateinit var toolbar: Toolbar
+
+    lateinit var bottomNavigation: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        bindViews()
         restoreSaveInstanceState(savedInstanceState)
-        initViews()
+        setSupportActionBar(toolbar)
+        setupBottomNavigation()
         initFragment(savedInstanceState)
     }
 
@@ -37,7 +43,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         navPosition = BottomNavigationHelper.findPositionById(item.itemId)
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.home -> switchFragment(HomeFragment.newInstance(), HomeFragment.TAG)
             R.id.dashboard -> switchFragment(DashboardFragment.newInstance(), DashboardFragment.TAG)
             R.id.notifications -> switchFragment(NotificationsFragment.newInstance(), NotificationsFragment.TAG)
@@ -47,27 +53,25 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
-        savedInstanceState?.let {
+        savedInstanceState?.also {
             val id = it.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)
             navPosition = BottomNavigationHelper.findPositionById(id)
         }
     }
 
-    fun initViews() {
-        findViewById(R.id.toolbar).apply { setSupportActionBar(this as Toolbar) }
-        findViewById(R.id.bottom_navigation).apply { setupBottomNavigation(this as BottomNavigationView) }
+    fun bindViews() {
+        toolbar = findViewById(R.id.toolbar) as Toolbar
+        bottomNavigation = findViewById(R.id.bottom_navigation) as BottomNavigationView
     }
 
-    fun setupBottomNavigation(bottomNavigationView: BottomNavigationView) {
-        bottomNavigationView.disableShiftMode()
-        bottomNavigationView.active(navPosition.position)
-        bottomNavigationView.setOnNavigationItemSelectedListener(this)
+    fun setupBottomNavigation() {
+        bottomNavigation.disableShiftMode()
+        bottomNavigation.active(navPosition.position)
+        bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 
     fun initFragment(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            switchFragment(HomeFragment.newInstance(), HomeFragment.TAG)
-        }
+        savedInstanceState ?: switchFragment(HomeFragment.newInstance(), HomeFragment.TAG)
     }
 
     /**
@@ -82,7 +86,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     fun detachFragment() {
-        supportFragmentManager.findFragmentById(R.id.container)?.let {
+        supportFragmentManager.findFragmentById(R.id.container)?.also {
             supportFragmentManager.beginTransaction().detach(it).commit()
         }
     }
