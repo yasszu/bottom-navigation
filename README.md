@@ -5,8 +5,8 @@
 ![screenshot](docs/screenshot.png)
 
 ## Prerequisites
-* Android SDK 25
-* Android Build Tool 25.0.2
-* Android Support Repository 25.2.0
-* Android Plugin for Gradle 2.3.3
-* Kotlin v1.1.3-2
+* Android SDK 26
+* Android Build Tool 26.0.2
+* Android Support Repository 26.1.0
+* Android Plugin for Gradle 3.0.0
+* Kotlin v1.1.51

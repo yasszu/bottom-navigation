@@ -18,13 +18,13 @@ import com.example.bottomnavigation.extension.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    val KEY_POSITION = "keyPosition"
+    private val KEY_POSITION = "keyPosition"
 
-    var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
+    private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
-    lateinit var toolbar: Toolbar
+    private lateinit var toolbar: Toolbar
 
-    lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var bottomNavigation: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,32 +52,32 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
-    fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+    private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.also {
             val id = it.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)
             navPosition = BottomNavigationHelper.findPositionById(id)
         }
     }
 
-    fun bindViews() {
-        toolbar = findViewById(R.id.toolbar) as Toolbar
-        bottomNavigation = findViewById(R.id.bottom_navigation) as BottomNavigationView
+    private fun bindViews() {
+        toolbar = findViewById(R.id.toolbar)
+        bottomNavigation = findViewById(R.id.bottom_navigation)
     }
 
-    fun setupBottomNavigation() {
+    private fun setupBottomNavigation() {
         bottomNavigation.disableShiftMode()
         bottomNavigation.active(navPosition.position)
         bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 
-    fun initFragment(savedInstanceState: Bundle?) {
+    private fun initFragment(savedInstanceState: Bundle?) {
         savedInstanceState ?: switchFragment(HomeFragment.newInstance(), HomeFragment.TAG)
     }
 
     /**
      * Immediately execute transactions with FragmentManager#executePendingTransactions.
      */
-    fun switchFragment(fragment: Fragment, tag: String): Boolean {
+    private fun switchFragment(fragment: Fragment, tag: String): Boolean {
         if (fragment.isAdded) return false
         detachFragment()
         attachFragment(fragment, tag)
@@ -85,13 +85,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return true
     }
 
-    fun detachFragment() {
+    private fun detachFragment() {
         supportFragmentManager.findFragmentById(R.id.container)?.also {
             supportFragmentManager.beginTransaction().detach(it).commit()
         }
     }
 
-    fun attachFragment(fragment: Fragment, tag: String) {
+    private fun attachFragment(fragment: Fragment, tag: String) {
         if (fragment.isDetached) {
             supportFragmentManager.beginTransaction().attach(fragment).commit()
         } else {
