@@ -1,4 +1,4 @@
-package com.example.bottomnavigation
+package com.example.bottomnavigation.ui
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -7,10 +7,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import com.example.bottomnavigation.fragment.DashboardFragment
-import com.example.bottomnavigation.fragment.HomeFragment
-import com.example.bottomnavigation.fragment.NotificationsFragment
-import com.example.bottomnavigation.fragment.ProfileFragment
+import com.example.bottomnavigation.R
 import com.example.bottomnavigation.helper.BottomNavigationHelper
 import com.example.bottomnavigation.helper.BottomNavigationPosition
 import com.example.bottomnavigation.extension.*
@@ -28,15 +25,17 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        bindViews()
         restoreSaveInstanceState(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        toolbar = findViewById(R.id.toolbar)
+        bottomNavigation = findViewById(R.id.bottom_navigation)
         setSupportActionBar(toolbar)
         setupBottomNavigation()
         initFragment(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
+        // Store the current navigation position.
         outState?.putInt(KEY_POSITION, navPosition.id)
         super.onSaveInstanceState(outState)
     }
@@ -53,15 +52,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+        // Restore the current navigation position.
         savedInstanceState?.also {
             val id = it.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)
             navPosition = BottomNavigationHelper.findPositionById(id)
         }
-    }
-
-    private fun bindViews() {
-        toolbar = findViewById(R.id.toolbar)
-        bottomNavigation = findViewById(R.id.bottom_navigation)
     }
 
     private fun setupBottomNavigation() {
@@ -97,6 +92,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         } else {
             supportFragmentManager.beginTransaction().add(R.id.container, fragment, tag).commit()
         }
+        // Set a transition animation for this transaction.
         supportFragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit()
