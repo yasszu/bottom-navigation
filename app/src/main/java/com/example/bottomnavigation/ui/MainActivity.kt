@@ -8,9 +8,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.example.bottomnavigation.R
-import com.example.bottomnavigation.helper.BottomNavigationHelper
-import com.example.bottomnavigation.helper.BottomNavigationPosition
 import com.example.bottomnavigation.extension.*
+import com.example.bottomnavigation.helper.*
 
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -41,21 +40,15 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        navPosition = BottomNavigationHelper.findPositionById(item.itemId)
-        return when (item.itemId) {
-            R.id.home -> switchFragment(HomeFragment.newInstance(), HomeFragment.TAG)
-            R.id.dashboard -> switchFragment(DashboardFragment.newInstance(), DashboardFragment.TAG)
-            R.id.notifications -> switchFragment(NotificationsFragment.newInstance(), NotificationsFragment.TAG)
-            R.id.profile -> switchFragment(ProfileFragment.newInstance(), ProfileFragment.TAG)
-            else -> false
-        }
+        navPosition = findNavigationPositionById(item.itemId)
+        return switchFragment(navPosition.createFragment(), navPosition.getTag())
     }
 
     private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
         // Restore the current navigation position.
         savedInstanceState?.also {
             val id = it.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)
-            navPosition = BottomNavigationHelper.findPositionById(id)
+            navPosition = findNavigationPositionById(id)
         }
     }
 

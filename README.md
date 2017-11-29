@@ -9,7 +9,7 @@ Example of how to use BottomNavigationView.
 * Android SDK 26
 * Android Build Tool 26.0.2
 * Android Support Repository 26.1.0
-* Android Plugin for Gradle 3.0.0
+* Android Plugin for Gradle 3.0.1
 * Kotlin v1.1.51
 
 ## Getting Started
