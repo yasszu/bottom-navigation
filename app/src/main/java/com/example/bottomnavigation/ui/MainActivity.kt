@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private fun setupBottomNavigation() {
-        bottomNavigation.disableShiftMode()
-        bottomNavigation.active(navPosition.position)
+        bottomNavigation.disableShiftMode() // Extension function
+        bottomNavigation.active(navPosition.position)   // Extension function
         bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 
