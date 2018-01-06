@@ -3,6 +3,7 @@ package com.example.bottomnavigation.ui
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         navPosition = findNavigationPositionById(item.itemId)
-        return switchFragment(navPosition.createFragment(), navPosition.getTag())
+        return switchFragment(navPosition)
     }
 
     private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
@@ -59,18 +60,23 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private fun initFragment(savedInstanceState: Bundle?) {
-        savedInstanceState ?: switchFragment(HomeFragment.newInstance(), HomeFragment.TAG)
+        savedInstanceState ?: switchFragment(BottomNavigationPosition.HOME)
     }
 
     /**
      * Immediately execute transactions with FragmentManager#executePendingTransactions.
      */
-    private fun switchFragment(fragment: Fragment, tag: String): Boolean {
+    private fun switchFragment(navPosition: BottomNavigationPosition): Boolean {
+        val fragment = supportFragmentManager.findFragment(navPosition)
         if (fragment.isAdded) return false
         detachFragment()
-        attachFragment(fragment, tag)
+        attachFragment(fragment, navPosition.getTag())
         supportFragmentManager.executePendingTransactions()
         return true
+    }
+
+    private fun FragmentManager.findFragment(position: BottomNavigationPosition): Fragment {
+        return findFragmentByTag(position.getTag()) ?: position.createFragment()
     }
 
     private fun detachFragment() {
