@@ -1,7 +1,6 @@
 # Bottom Navigation
-Example of how to use BottomNavigationView.
-* Kotlin
-* [BottomNavigationView](https://developer.android.com/reference/android/support/design/widget/BottomNavigationView.html)   
+This application is example of how to use [BottomNavigationView](https://developer.android.com/reference/android/support/design/widget/BottomNavigationView.html).
+* This app is implemented in Kotlin
 * Disable BottomNavigationView shift mode.  
 ![screenshot](docs/screenshot.png)
 
@@ -14,3 +13,12 @@ Example of how to use BottomNavigationView.
 
 ## Getting Started
 Build with Android Studio 3.0
+
+### ProGuard
+You need to configure proguard-rules.pro file if you want use ProGuard. Such as below:   
+
+```
+-keepclassmembers class android.support.design.internal.BottomNavigationMenuView { 
+    boolean mShiftingMode; 
+}
+```
