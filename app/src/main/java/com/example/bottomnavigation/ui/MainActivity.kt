@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         toolbar = findViewById(R.id.toolbar)
         bottomNavigation = findViewById(R.id.bottom_navigation)
         setSupportActionBar(toolbar)
-        setupBottomNavigation()
+        initBottomNavigation()
         initFragment(savedInstanceState)
     }
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
-    private fun setupBottomNavigation() {
+    private fun initBottomNavigation() {
         bottomNavigation.disableShiftMode() // Extension function
         bottomNavigation.active(navPosition.position)   // Extension function
         bottomNavigation.setOnNavigationItemSelectedListener(this)

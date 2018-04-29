@@ -15,9 +15,9 @@ class HomeFragment : Fragment() {
         fun newInstance() = HomeFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        activity.title = getString(R.string.title_home)
-        val view = inflater?.inflate(R.layout.fragment_home, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        activity?.title = getString(R.string.title_home)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
         return view
     }
 

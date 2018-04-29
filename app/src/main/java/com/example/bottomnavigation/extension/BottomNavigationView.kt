@@ -8,7 +8,7 @@ import android.util.Log
 /**
  * Created by Yasuhiro Suzuki on 2017/07/15.
  *
- * http://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
+ * See http://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
  */
 
 fun BottomNavigationView.disableShiftMode() {
@@ -25,8 +25,8 @@ fun BottomNavigationView.disableShiftMode() {
                 item.setChecked(item.itemData.isChecked)
             }
         }
-    } catch (e: NoSuchFieldException) {
-        Log.e("BottomNavigationHelper", "Unable to get shift mode field", e)
+    } catch (t: Throwable) {
+        Log.e("BottomNavigationHelper", "Unable to get shift mode field", t)
     } catch (e: IllegalAccessException) {
         Log.e("BottomNavigationHelper", "Unable to change value of shift mode", e)
     }
