@@ -8,14 +8,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.example.bottomnavigation.R
-import com.example.bottomnavigation.extension.active
-import com.example.bottomnavigation.extension.attach
-import com.example.bottomnavigation.extension.detach
-import com.example.bottomnavigation.extension.disableShiftMode
-import com.example.bottomnavigation.helper.BottomNavigationPosition
-import com.example.bottomnavigation.helper.createFragment
-import com.example.bottomnavigation.helper.findNavigationPositionById
-import com.example.bottomnavigation.helper.getTag
+import com.example.bottomnavigation.extension.*
+import com.example.bottomnavigation.helper.*
 
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
