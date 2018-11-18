@@ -21,7 +21,7 @@ fun BottomNavigationView.disableShiftMode() {
         }
         for (i in 0 until menuView.childCount) {
             (menuView.getChildAt(i) as BottomNavigationItemView).also { item ->
-                item.setShiftingMode(false)
+                item.setShifting(false)
                 item.setChecked(item.itemData.isChecked)
             }
         }
