@@ -12,7 +12,7 @@ This application is example of how to use [BottomNavigationView](https://develop
 * Kotlin gradle plugin 1.2.51
 
 ## Getting Started
-Build with Android Studio 3.0
+Build with Android Studio 3.2.1
 
 ### ProGuard
 You need to configure proguard-rules.pro file if you want use ProGuard. Such as below:   
