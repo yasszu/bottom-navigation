@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private fun initBottomNavigation() {
-        bottomNavigation.disableShiftMode() // Extension function
+        // This is required in Support Library 27 or lower.
+        // bottomNavigation.disableShiftMode()
         bottomNavigation.active(navPosition.position)   // Extension function
         bottomNavigation.setOnNavigationItemSelectedListener(this)
     }

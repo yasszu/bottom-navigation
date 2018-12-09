@@ -8,6 +8,7 @@ import android.util.Log
 /**
  * Created by Yasuhiro Suzuki on 2017/07/15.
  *
+ * This can be used in Support Library 27 or lower.
  * See http://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
  */
 

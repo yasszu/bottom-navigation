@@ -14,7 +14,25 @@ This application is example of how to use [BottomNavigationView](https://develop
 ## Getting Started
 Build with Android Studio 3.2.1
 
-### ProGuard
+## Disable shifting mode
+### Since Support library 28
+
+```xml
+    <android.support.design.widget.BottomNavigationView
+        ・・・
+        app:labelVisibilityMode="labeled"
+        ・・・
+    />
+```
+
+### Under Support library 27
+
+Use the extension of BottomNavigationView.
+
+```java
+BottomNavigationView.disableShiftMode()
+```
+
 You need to configure proguard-rules.pro file if you want use ProGuard. Such as below:   
 
 ```
