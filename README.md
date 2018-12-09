@@ -25,7 +25,7 @@ Build with Android Studio 3.2.1
     />
 ```
 
-### Under Support library 27 [(target-sdk-27)](https://github.com/yasszu/bottom-navigation/tree/target-sdk-27)
+### Under Support library 27 ([target-sdk-27](https://github.com/yasszu/bottom-navigation/tree/target-sdk-27))
 
 Use the extension of [BottomNavigationView](https://github.com/yasszu/bottom-navigation/blob/master/app/src/main/java/com/example/bottomnavigation/extension/BottomNavigationView.kt).
 
