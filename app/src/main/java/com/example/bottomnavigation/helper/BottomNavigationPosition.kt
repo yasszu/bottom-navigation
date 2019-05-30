@@ -1,6 +1,6 @@
 package com.example.bottomnavigation.helper
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.example.bottomnavigation.R
 import com.example.bottomnavigation.ui.DashboardFragment
 import com.example.bottomnavigation.ui.HomeFragment

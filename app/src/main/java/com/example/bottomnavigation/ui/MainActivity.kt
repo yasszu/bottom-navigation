@@ -1,35 +1,45 @@
 package com.example.bottomnavigation.ui
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import com.example.bottomnavigation.R
-import com.example.bottomnavigation.extension.*
-import com.example.bottomnavigation.helper.*
+import com.example.bottomnavigation.extension.active
+import com.example.bottomnavigation.extension.attach
+import com.example.bottomnavigation.extension.detach
+import com.example.bottomnavigation.helper.BottomNavigationPosition
+import com.example.bottomnavigation.helper.createFragment
+import com.example.bottomnavigation.helper.findNavigationPositionById
+import com.example.bottomnavigation.helper.getTag
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     private val KEY_POSITION = "keyPosition"
 
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
-    private lateinit var toolbar: Toolbar
-
-    private lateinit var bottomNavigation: BottomNavigationView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreSaveInstanceState(savedInstanceState)
         setContentView(R.layout.activity_main)
-        toolbar = findViewById(R.id.toolbar)
-        bottomNavigation = findViewById(R.id.bottom_navigation)
-        setSupportActionBar(toolbar)
-        initBottomNavigation()
+
+        findViewById<Toolbar>(R.id.toolbar).apply {
+            setSupportActionBar(this)
+        }
+
+        findViewById<BottomNavigationView>(R.id.bottom_navigation).apply {
+            // This is required in Support Library 27 or lower:
+            // bottomNavigation.disableShiftMode()
+            active(navPosition.position) // Extension function
+            setOnNavigationItemSelectedListener { item ->
+                navPosition = findNavigationPositionById(item.itemId)
+                switchFragment(navPosition)
+            }
+        }
+
         initFragment(savedInstanceState)
     }
 
@@ -39,24 +49,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onSaveInstanceState(outState)
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        navPosition = findNavigationPositionById(item.itemId)
-        return switchFragment(navPosition)
-    }
-
     private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
         // Restore the current navigation position.
-        savedInstanceState?.also {
-            val id = it.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)
-            navPosition = findNavigationPositionById(id)
+        savedInstanceState?.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)?.also {
+            navPosition = findNavigationPositionById(it)
         }
-    }
-
-    private fun initBottomNavigation() {
-        // This is required in Support Library 27 or lower.
-        // bottomNavigation.disableShiftMode()
-        bottomNavigation.active(navPosition.position)   // Extension function
-        bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 
     private fun initFragment(savedInstanceState: Bundle?) {
@@ -67,7 +64,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
      * Immediately execute transactions with FragmentManager#executePendingTransactions.
      */
     private fun switchFragment(navPosition: BottomNavigationPosition): Boolean {
-        return supportFragmentManager.findFragment(navPosition).let {
+        return findFragment(navPosition).let {
             if (it.isAdded) return false
             supportFragmentManager.detach() // Extension function
             supportFragmentManager.attach(it, navPosition.getTag()) // Extension function
@@ -75,8 +72,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
-    private fun FragmentManager.findFragment(position: BottomNavigationPosition): Fragment {
-        return findFragmentByTag(position.getTag()) ?: position.createFragment()
+    private fun findFragment(position: BottomNavigationPosition): Fragment {
+        return supportFragmentManager.findFragmentByTag(position.getTag()) ?: position.createFragment()
     }
 
 }
