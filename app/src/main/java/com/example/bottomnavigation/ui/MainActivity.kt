@@ -1,7 +1,6 @@
 package com.example.bottomnavigation.ui
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -16,7 +15,7 @@ import com.example.bottomnavigation.helper.getTag
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     private val KEY_POSITION = "keyPosition"
 
@@ -35,7 +34,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             // This is required in Support Library 27 or lower:
             // bottomNavigation.disableShiftMode()
             active(navPosition.position) // Make default position active
-            setOnNavigationItemSelectedListener(this@MainActivity)
+
+            setOnNavigationItemSelectedListener { item ->
+                navPosition = findNavigationPositionById(item.itemId)
+                switchFragment(navPosition)
+            }
         }
 
         initFragment(savedInstanceState)
@@ -45,11 +48,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         // Store the current navigation position.
         outState?.putInt(KEY_POSITION, navPosition.id)
         super.onSaveInstanceState(outState)
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        navPosition = findNavigationPositionById(item.itemId)
-        return switchFragment(navPosition)
     }
 
     private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
