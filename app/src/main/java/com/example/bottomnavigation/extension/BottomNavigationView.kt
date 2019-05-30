@@ -33,6 +33,9 @@ fun BottomNavigationView.disableShiftMode() {
     }
 }
 
+/**
+ * Make selected position active
+ */
 fun BottomNavigationView.active(position: Int) {
     menu.getItem(position).isChecked = true
 }

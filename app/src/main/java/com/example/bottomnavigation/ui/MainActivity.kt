@@ -33,8 +33,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).apply {
             // This is required in Support Library 27 or lower:
             // bottomNavigation.disableShiftMode()
-            active(navPosition.position) // Make default position active
-
+            active(navPosition.position) // Extension function
             setOnNavigationItemSelectedListener { item ->
                 navPosition = findNavigationPositionById(item.itemId)
                 switchFragment(navPosition)
