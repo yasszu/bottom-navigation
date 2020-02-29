@@ -17,8 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val KEY_POSITION = "keyPosition"
-
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).apply {
             // This is required in Support Library 27 or lower:
             // bottomNavigation.disableShiftMode()
+
             active(navPosition.position) // Extension function
             setOnNavigationItemSelectedListener { item ->
                 navPosition = findNavigationPositionById(item.itemId)
@@ -43,9 +42,9 @@ class MainActivity : AppCompatActivity() {
         initFragment(savedInstanceState)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         // Store the current navigation position.
-        outState?.putInt(KEY_POSITION, navPosition.id)
+        outState.putInt(KEY_POSITION, navPosition.id)
         super.onSaveInstanceState(outState)
     }
 
@@ -73,7 +72,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun findFragment(position: BottomNavigationPosition): Fragment {
-        return supportFragmentManager.findFragmentByTag(position.getTag()) ?: position.createFragment()
+        return supportFragmentManager.findFragmentByTag(position.getTag())
+                ?: position.createFragment()
     }
 
+
+    companion object {
+        const val KEY_POSITION = "keyPosition"
+    }
 }
