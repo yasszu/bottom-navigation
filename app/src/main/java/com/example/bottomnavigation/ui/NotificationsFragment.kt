@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.bottomnavigation.R
+import com.example.bottomnavigation.databinding.FragmentNotificationsBinding
 
 
 class NotificationsFragment : Fragment() {
 
+    private lateinit var binding: FragmentNotificationsBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         activity?.title = getString(R.string.title_notifications)
-        val view = inflater.inflate(R.layout.fragment_notifications, container, false)
-        return view
+        return binding.root
     }
 
     companion object {

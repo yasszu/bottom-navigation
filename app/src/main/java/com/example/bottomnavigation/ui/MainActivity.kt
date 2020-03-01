@@ -2,9 +2,10 @@ package com.example.bottomnavigation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.bottomnavigation.R
+import com.example.bottomnavigation.databinding.ActivityMainBinding
 import com.example.bottomnavigation.extension.active
 import com.example.bottomnavigation.extension.attach
 import com.example.bottomnavigation.extension.detach
@@ -12,23 +13,25 @@ import com.example.bottomnavigation.helper.BottomNavigationPosition
 import com.example.bottomnavigation.helper.createFragment
 import com.example.bottomnavigation.helper.findNavigationPositionById
 import com.example.bottomnavigation.helper.getTag
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        restoreSaveInstanceState(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        restoreSavedInstanceState(savedInstanceState)
 
-        findViewById<Toolbar>(R.id.toolbar).apply {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        binding.toolbar.apply {
             setSupportActionBar(this)
         }
 
-        findViewById<BottomNavigationView>(R.id.bottom_navigation).apply {
+        binding.bottomNavigation.apply {
             // This is required in Support Library 27 or lower:
             // bottomNavigation.disableShiftMode()
 
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+    private fun restoreSavedInstanceState(savedInstanceState: Bundle?) {
         // Restore the current navigation position.
         savedInstanceState?.getInt(KEY_POSITION, BottomNavigationPosition.HOME.id)?.also {
             navPosition = findNavigationPositionById(it)

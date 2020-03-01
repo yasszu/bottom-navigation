@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.bottomnavigation.R
+import com.example.bottomnavigation.databinding.FragmentDashboardBinding
 
 
 class DashboardFragment : Fragment() {
 
+    private lateinit var binding: FragmentDashboardBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentDashboardBinding.inflate(inflater, container, false)
         activity?.title = getString(R.string.title_dashboard)
-        val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        return view
+        return binding.root
     }
 
     companion object {
