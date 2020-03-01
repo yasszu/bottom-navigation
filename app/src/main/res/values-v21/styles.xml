@@ -3,7 +3,6 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textColorPrimary">@color/colorAccent</item>
     </style>
 
 </resources>
