@@ -1,7 +1,6 @@
 <resources>
-
     <!-- Base application theme. -->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.Base" parent="Theme.MaterialComponents.DayNight">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,13 +9,11 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textColorPrimary">@color/colorAccent</item>
     </style>
 
-    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ToolbarTheme" parent="AppTheme.Base">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/white</item>
-        <item name="android:textColorPrimary">@color/black</item>
     </style>
 
 </resources>
