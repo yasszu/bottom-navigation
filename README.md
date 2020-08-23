@@ -6,13 +6,13 @@ This application is example of how to use [BottomNavigationView](https://develop
 
 ## Prerequisites
 * Android SDK 29
-* Android Build Tool 28.0.3
-* Androidx 1.1.0
-* Android Plugin for Gradle 3.5.3
-* Kotlin gradle plugin 1.3.41
+* Android Build Tool 30.0.2
+* Androidx 1.2.0
+* Android Plugin for Gradle 4.0.1
+* Kotlin gradle plugin 1.4.0
 
 ## Getting Started
-Build with Android Studio 3.5.3
+Build with Android Studio 4.0
 
 ## Disable shifting mode
 ### Since Support library 28
