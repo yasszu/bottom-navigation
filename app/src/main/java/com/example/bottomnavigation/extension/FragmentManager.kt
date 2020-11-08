@@ -21,3 +21,14 @@ fun FragmentManager.attach(fragment: Fragment, tag: String) {
     // Set a transition animation for this transaction.
     beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
 }
+
+fun FragmentManager.switchFragment(fragment: Fragment, tag: String): Boolean {
+    return fragment.let {
+        if (it.isAdded) return false
+        detach()
+        attach(it, tag)
+
+        // Immediately execute transactions
+        executePendingTransactions()
+    }
+}
