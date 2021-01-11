@@ -36,7 +36,7 @@ ext {
 
     // Dependencies
     appcompatVersion = '1.2.0'
-    materialVersion = '1.2.0'
+    materialVersion = '1.2.1'
     espressoVersion = '3.2.0'
     junitVersion = '4.13'
 }
