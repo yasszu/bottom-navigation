@@ -31,9 +31,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bottomNavigation.apply {
-            // This is required in Support Library 27 or lower:
-            // bottomNavigation.disableShiftMode()
-
             // Set a default position
             active(navPosition.position) // Extension function
 
