@@ -1,5 +1,6 @@
 # Bottom Navigation
-This application is example of how to use [BottomNavigationView](https://developer.android.com/reference/android/support/design/widget/BottomNavigationView.html).
+This application is example of how to use [BottomNavigationView](https://developer.android.com/reference/com/google/android/material/bottomnavigation/BottomNavigationView).
+* Implement `com.google.android.material.bottomnavigation.BottomNavigationView`
 * This app is implemented in Kotlin
 * Disable BottomNavigationView shift mode.  
 ![screenshot](docs/screenshot.png)
@@ -7,7 +8,7 @@ This application is example of how to use [BottomNavigationView](https://develop
 ## Prerequisites
 * Android SDK 29
 * Android Build Tool 30.0.2
-* Androidx 1.2.0
+* Androidx 1.2.1
 * Android Plugin for Gradle 4.1.0
 * Kotlin gradle plugin 1.4.10
 
@@ -27,7 +28,7 @@ Build with Android Studio 4.1
 
 ### Support library 27 or lower ([target-sdk-27](https://github.com/yasszu/bottom-navigation/tree/target-sdk-27))
 
-Use the extension of [BottomNavigationView](https://github.com/yasszu/bottom-navigation/blob/master/app/src/main/java/com/example/bottomnavigation/extension/BottomNavigationView.kt).
+Use the extension of [BottomNavigationView](https://github.com/yasszu/bottom-navigation/blob/target-sdk-27/app/src/main/java/com/example/bottomnavigation/extension/BottomNavigationView.kt).
 
 ```java
 bottomNavigationView.disableShiftMode()
