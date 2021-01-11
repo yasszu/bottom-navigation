@@ -7,10 +7,12 @@ import android.util.Log
 
 /**
  * Created by Yasuhiro Suzuki on 2017/07/15.
- *
- * See http://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
  */
 
+/**
+ * This can be used in Support Library 27 or lower.
+ * See http://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
+ */
 fun BottomNavigationView.disableShiftMode() {
     val menuView = getChildAt(0) as BottomNavigationMenuView
     try {
