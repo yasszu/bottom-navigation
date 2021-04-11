@@ -19,7 +19,7 @@ fun FragmentManager.switchFragment(fragment: Fragment, tag: String): Boolean {
         } else {
             add(R.id.container, fragment, tag)
         }
-        // Set a transition animation for this transaction.
+        // Set the animation for this transaction
         setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
     }
     // Immediately execute transactions

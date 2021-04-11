@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Add the home fragment
         savedInstanceState ?: switchFragment(BottomNavigationPosition.HOME)
     }
 
@@ -64,7 +65,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun findFragment(position: BottomNavigationPosition): Fragment {
-        return supportFragmentManager.findFragmentByTag(position.getTag()) ?: position.createFragment()
+        return supportFragmentManager.findFragmentByTag(position.getTag())
+                ?: position.createFragment()
     }
 
     companion object {
