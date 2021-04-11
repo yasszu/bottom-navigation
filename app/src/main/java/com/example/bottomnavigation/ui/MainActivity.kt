@@ -16,10 +16,6 @@ import com.example.bottomnavigation.helper.getTag
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        const val KEY_POSITION = "keyPosition"
-    }
-
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
 
     private lateinit var binding: ActivityMainBinding
@@ -69,6 +65,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun findFragment(position: BottomNavigationPosition): Fragment {
         return supportFragmentManager.findFragmentByTag(position.getTag()) ?: position.createFragment()
+    }
+
+    companion object {
+        const val KEY_POSITION = "keyPosition"
     }
 
 }
