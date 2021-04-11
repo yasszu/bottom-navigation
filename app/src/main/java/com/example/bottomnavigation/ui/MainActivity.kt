@@ -16,9 +16,13 @@ import com.example.bottomnavigation.helper.getTag
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    companion object {
+        const val KEY_POSITION = "keyPosition"
+    }
 
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        initFragment(savedInstanceState)
+        savedInstanceState ?: switchFragment(BottomNavigationPosition.HOME)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -57,10 +61,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initFragment(savedInstanceState: Bundle?) {
-        savedInstanceState ?: switchFragment(BottomNavigationPosition.HOME)
-    }
-
     private fun switchFragment(navPosition: BottomNavigationPosition): Boolean {
         return findFragment(navPosition).let {
             supportFragmentManager.switchFragment(it, navPosition.getTag()) // Extension function
@@ -71,7 +71,4 @@ class MainActivity : AppCompatActivity() {
         return supportFragmentManager.findFragmentByTag(position.getTag()) ?: position.createFragment()
     }
 
-    companion object {
-        const val KEY_POSITION = "keyPosition"
-    }
 }

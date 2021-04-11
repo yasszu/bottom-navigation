@@ -3,32 +3,25 @@ package com.example.bottomnavigation.extension
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import com.example.bottomnavigation.R
 
-
-fun FragmentManager.detach() {
-    findFragmentById(R.id.container)?.also {
-        beginTransaction().detach(it).commit()
-    }
-}
-
-fun FragmentManager.attach(fragment: Fragment, tag: String) {
-    if (fragment.isDetached) {
-        beginTransaction().attach(fragment).commit()
-    } else {
-        beginTransaction().add(R.id.container, fragment, tag).commit()
-    }
-    // Set a transition animation for this transaction.
-    beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
-}
-
 fun FragmentManager.switchFragment(fragment: Fragment, tag: String): Boolean {
-    return fragment.let {
-        if (it.isAdded) return false
-        detach()
-        attach(it, tag)
-
-        // Immediately execute transactions
-        executePendingTransactions()
+    if (fragment.isAdded) return false
+    commit {
+        // Detach a fragment
+        findFragmentById(R.id.container)?.also {
+            detach(it)
+        }
+        // Attach or add a fragment
+        if (fragment.isDetached) {
+            attach(fragment)
+        } else {
+            add(R.id.container, fragment, tag)
+        }
+        // Set a transition animation for this transaction.
+        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
     }
+    // Immediately execute transactions
+    return executePendingTransactions()
 }
