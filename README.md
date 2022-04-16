@@ -8,7 +8,7 @@ This application is example of how to use [BottomNavigationView](https://develop
 * Android SDK 29
 * Android Build Tool 30.0.2
 * Androidx 1.2.0
-* Android Plugin for Gradle 4.0.1
+* Android Plugin for Gradle 7.1.3
 * Kotlin gradle plugin 1.4.0
 
 ## Getting Started

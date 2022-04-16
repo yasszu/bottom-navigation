@@ -4,7 +4,6 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "com.example.bottomnavigation"
         minSdkVersion rootProject.minSdkVersion
@@ -24,9 +23,6 @@ android {
     dataBinding {
         enabled = true
     }
-    lintOptions {
-        disable 'RestrictedApi'
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,6 +30,9 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    lint {
+        disable 'RestrictedApi'
     }
 }
 
