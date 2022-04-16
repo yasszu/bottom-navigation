@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             // bottomNavigation.disableShiftMode()
 
             active(navPosition.position) // Extension function
-            setOnNavigationItemSelectedListener { item ->
+            setOnItemSelectedListener { item ->
                 navPosition = findNavigationPositionById(item.itemId)
                 switchFragment(navPosition)
             }

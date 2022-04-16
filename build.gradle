@@ -30,13 +30,13 @@ task clean(type: Delete) {
 ext {
     // Build config
     minSdkVersion = 21
-    targetSdkVersion = 29
-    compileSdkVersion = 29
+    targetSdkVersion = 31
+    compileSdkVersion = 31
     buildToolsVersion = '30.0.2'
 
     // Dependencies
-    appcompatVersion = '1.2.0'
-    materialVersion = '1.2.0'
+    appcompatVersion = '1.4.1'
+    materialVersion = '1.5.0'
     espressoVersion = '3.2.0'
     junitVersion = '4.13'
 }

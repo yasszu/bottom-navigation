@@ -5,7 +5,7 @@ This application is example of how to use [BottomNavigationView](https://develop
 ![screenshot](docs/screenshot.png)
 
 ## Prerequisites
-* Android SDK 29
+* Android SDK 31
 * Android Build Tool 30.0.2
 * Androidx 1.2.0
 * Android Plugin for Gradle 7.1.3
