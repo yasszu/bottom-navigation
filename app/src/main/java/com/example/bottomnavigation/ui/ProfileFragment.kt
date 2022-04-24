@@ -13,9 +13,13 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        activity?.title = getString(R.string.title_profile)
+
+        requireActivity().apply {
+            title = getString(R.string.title_profile)
+        }
+
         return binding.root
     }
 

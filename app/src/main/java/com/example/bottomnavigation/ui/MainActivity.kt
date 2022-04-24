@@ -7,8 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.bottomnavigation.R
 import com.example.bottomnavigation.databinding.ActivityMainBinding
 import com.example.bottomnavigation.extension.active
-import com.example.bottomnavigation.extension.attach
-import com.example.bottomnavigation.extension.detach
+import com.example.bottomnavigation.extension.switchFragment
 import com.example.bottomnavigation.helper.BottomNavigationPosition
 import com.example.bottomnavigation.helper.createFragment
 import com.example.bottomnavigation.helper.findNavigationPositionById
@@ -17,9 +16,9 @@ import com.example.bottomnavigation.helper.getTag
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
     private var navPosition: BottomNavigationPosition = BottomNavigationPosition.HOME
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,17 +31,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bottomNavigation.apply {
-            // This is required in Support Library 27 or lower:
-            // bottomNavigation.disableShiftMode()
-
+            // Set a default position
             active(navPosition.position) // Extension function
+
+            // Set a listener for handling selection events on bottom navigation items
             setOnNavigationItemSelectedListener { item ->
                 navPosition = findNavigationPositionById(item.itemId)
                 switchFragment(navPosition)
             }
         }
 
-        initFragment(savedInstanceState)
+        // Add the home fragment
+        savedInstanceState ?: switchFragment(BottomNavigationPosition.HOME)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -58,19 +58,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initFragment(savedInstanceState: Bundle?) {
-        savedInstanceState ?: switchFragment(BottomNavigationPosition.HOME)
-    }
-
-    /**
-     * Immediately execute transactions with FragmentManager#executePendingTransactions.
-     */
     private fun switchFragment(navPosition: BottomNavigationPosition): Boolean {
         return findFragment(navPosition).let {
-            if (it.isAdded) return false
-            supportFragmentManager.detach() // Extension function
-            supportFragmentManager.attach(it, navPosition.getTag()) // Extension function
-            supportFragmentManager.executePendingTransactions()
+            supportFragmentManager.switchFragment(it, navPosition.getTag()) // Extension function
         }
     }
 
@@ -79,8 +69,8 @@ class MainActivity : AppCompatActivity() {
                 ?: position.createFragment()
     }
 
-
     companion object {
         const val KEY_POSITION = "keyPosition"
     }
+
 }
