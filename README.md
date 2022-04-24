@@ -10,7 +10,7 @@ This application is example of how to use [BottomNavigationView](https://develop
 * Android Build Tool 30.0.2
 * Androidx 1.2.1
 * Android Plugin for Gradle 7.1.3
-* Kotlin gradle plugin 1.6.20
+* Kotlin gradle plugin 1.6.21
 
 ## Getting Started
 Build with Android Studio 4.1

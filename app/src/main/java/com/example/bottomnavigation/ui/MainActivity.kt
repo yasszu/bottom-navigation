@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             active(navPosition.position) // Extension function
 
             // Set a listener for handling selection events on bottom navigation items
-            setOnNavigationItemSelectedListener { item ->
+            setOnItemSelectedListener { item ->
                 navPosition = findNavigationPositionById(item.itemId)
                 switchFragment(navPosition)
             }
