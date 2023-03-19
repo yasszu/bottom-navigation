@@ -27,5 +27,4 @@ class ProfileFragment : Fragment() {
         val TAG: String = ProfileFragment::class.java.simpleName
         fun newInstance() = ProfileFragment()
     }
-
 }

@@ -27,5 +27,4 @@ class DashboardFragment : Fragment() {
         val TAG: String = DashboardFragment::class.java.simpleName
         fun newInstance() = DashboardFragment()
     }
-
 }
