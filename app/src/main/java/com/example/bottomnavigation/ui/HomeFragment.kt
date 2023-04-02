@@ -27,5 +27,4 @@ class HomeFragment : Fragment() {
         val TAG: String = HomeFragment::class.java.simpleName
         fun newInstance() = HomeFragment()
     }
-
 }

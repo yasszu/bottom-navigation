@@ -66,11 +66,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun findFragment(position: BottomNavigationPosition): Fragment {
         return supportFragmentManager.findFragmentByTag(position.getTag())
-                ?: position.createFragment()
+            ?: position.createFragment()
     }
 
     companion object {
         const val KEY_POSITION = "keyPosition"
     }
-
 }

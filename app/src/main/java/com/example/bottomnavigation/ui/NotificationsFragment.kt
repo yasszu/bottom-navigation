@@ -27,5 +27,4 @@ class NotificationsFragment : Fragment() {
         val TAG: String = NotificationsFragment::class.java.simpleName
         fun newInstance() = NotificationsFragment()
     }
-
 }

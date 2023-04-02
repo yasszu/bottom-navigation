@@ -6,14 +6,14 @@ This application is example of how to use [BottomNavigationView](https://develop
 ![screenshot](docs/screenshot.png)
 
 ## Prerequisites
-* Android SDK 31
+* Android SDK 33
 * Android Build Tool 30.0.2
-* Androidx 1.2.1
-* Android Plugin for Gradle 7.1.3
-* Kotlin gradle plugin 1.6.21
+* Androidx 1.6.1
+* Android Plugin for Gradle 7.4.2
+* Kotlin gradle plugin 1.8.0
 
 ## Getting Started
-Build with Android Studio 4.1
+Build with the Android Studio Electric Eel | 2022.1.1 Patch 2
 
 ## Disable shifting mode
 ### Since Support library 28
